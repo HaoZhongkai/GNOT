@@ -1,4 +1,4 @@
-### GNOT: General Neural Operator Transformer
+# GNOT: General Neural Operator Transformer
 
 
 Code for [GNOT: A General Neural Operator Transformer for Operator Learning](https://arxiv.org/abs/2302.14376).
@@ -22,7 +22,7 @@ Then moves datasets in this folder. For your custom datasets, you might need to 
 Datasets can be found in these links,
 - Darcy2d and NS2d-time (from FNO's experiments):  [FNO datasets](https://drive.google.com/drive/folders/1UnbQh2WWc6knEHbLn-ZaXrKUZhp7pjt-)
 - Naca2d and Elas2d (from GeoFNO's experiments): [GeoFNO datasets](https://drive.google.com/drive/folders/1YBuaoTdOSr_qzaow-G-iwvbUI7fiUzu8)
-- Heat2d, ns2d, Inductor2d, Heatsink3d: [Our GNOT datasets](https://drive.google.com/drive/folders/1YBuaoTdOSr_qzaow-G-iwvbUI7fiUzu8)
+- Heat2d, ns2d, Inductor2d, Heatsink3d: [Our GNOT datasets](https://drive.google.com/drive/folders/1kicZyL1t4z6a7B-6DJEOxIrX877gjBC0)
 
 **Data Format:**
 

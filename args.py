@@ -39,7 +39,7 @@ def get_args():
                         help="whether normalize y")
 
 
-    parser.add_argument('--epochs', type=int, default=2, metavar='N',
+    parser.add_argument('--epochs', type=int, default=500, metavar='N',
                         help='number of epochs to train (default: 100)')
     parser.add_argument('--optimizer', type=str, default='AdamW',choices=['Adam','AdamW'])
 
