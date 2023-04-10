@@ -17,10 +17,10 @@ import torch.nn as nn
 from torch.optim.lr_scheduler import OneCycleLR, StepLR, LambdaLR
 from torch.utils.tensorboard import SummaryWriter
 
-from gno_transformer.args import get_args
-from gno_transformer.data_utils import get_dataset, get_model, get_loss_func, collate_op, MIODataLoader
-from gno_transformer.utils import get_seed, get_num_params
-from gno_transformer.models.optimizer import Adam, AdamW
+from args import get_args
+from data_utils import get_dataset, get_model, get_loss_func, collate_op, MIODataLoader
+from utils import get_seed, get_num_params
+from models.optimizer import Adam, AdamW
 
 
 

@@ -8,11 +8,11 @@ import dgl
 import matplotlib.pyplot as plt
 from dgl.dataloading import GraphDataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
-from gno_transformer.utils import get_seed, get_num_params
-from gno_transformer.args import get_args
-from gno_transformer.data_utils import get_dataset, get_model, get_loss_func, MIODataLoader
-from gno_transformer.train import validate_epoch
-from gno_transformer.utils import plot_heatmap
+from utils import get_seed, get_num_params
+from args import get_args
+from data_utils import get_dataset, get_model, get_loss_func, MIODataLoader
+from train import validate_epoch
+from utils import plot_heatmap
 
 
 if __name__ == "__main__":

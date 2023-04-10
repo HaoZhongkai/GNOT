@@ -10,8 +10,8 @@ from torch.nn import functional as F
 from torch.nn import GELU, ReLU, Tanh, Sigmoid
 from torch.nn.utils.rnn import pad_sequence
 
-from gno_transformer.utils import MultipleTensors
-from gno_transformer.models.mlp import MLP
+from utils import MultipleTensors
+from models.mlp import MLP
 
 
 

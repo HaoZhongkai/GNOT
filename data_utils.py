@@ -24,9 +24,9 @@ from torch.nn.utils.rnn import pad_sequence
 
 
 
-from gno_transformer.utils import TorchQuantileTransformer, UnitTransformer, PointWiseUnitTransformer, MultipleTensors
-from gno_transformer.models.cgpt import CGPTNO
-from gno_transformer.models.mmgpt import GNOT
+from utils import TorchQuantileTransformer, UnitTransformer, PointWiseUnitTransformer, MultipleTensors
+from models.cgpt import CGPTNO
+from models.mmgpt import GNOT
 
 
 
@@ -281,6 +281,7 @@ class MIODataset(DGLDataset):
                 if train_num == 'all':   # use all to train
                     self.train_num = len(data_all)
                 else:
+                    train_num = int(train_num)
                     self.train_num = min(train_num, len(data_all))
                     if train_num > len(data_all):
                         print('Warnings: there is no enough train data {} / {}'.format(train_num, len(data_all)))
@@ -291,6 +292,7 @@ class MIODataset(DGLDataset):
                 if test_num == "all":
                     self.test_num = len(data_all)
                 else:
+                    test_num = int(test_num)
                     self.test_num = min(test_num, len(data_all))
                     if test_num > len(data_all):
                         print('Warnings: there is no enough test data {} / {}'.format(test_num, len(data_all)))

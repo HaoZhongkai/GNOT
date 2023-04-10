@@ -73,7 +73,7 @@ python train.py --gpu 0 --dataset ns2d_4ball --use-normalizer unit  --normalize_
 
 ### Citation
 
-If you use SAM or SA-1B in your research, please use the following BibTeX entry.
+If you use GNOT in your research, please use the following BibTeX entry.
 ```
 @article{hao2023gnot,
   title={GNOT: A General Neural Operator Transformer for Operator Learning},

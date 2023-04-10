@@ -11,7 +11,7 @@ from torch.nn import GELU, ReLU, Tanh, Sigmoid
 from torch.nn.utils.rnn import pad_sequence
 
 
-from gno_transformer.models.mlp import MLP
+from models.mlp import MLP
 
 
 
