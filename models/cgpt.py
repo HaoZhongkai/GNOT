@@ -231,8 +231,7 @@ class CrossAttentionBlock(nn.Module):
 
 '''
     Cross Attention GPT neural operator
-    Trunck Net: geom
-'''
+    Trunck Net: geom'''
 class CGPTNO(nn.Module):
     def __init__(self,
                  trunk_size=2,
@@ -253,14 +252,22 @@ class CGPTNO(nn.Module):
 
         self.horiz_fourier_dim = horiz_fourier_dim
         self.trunk_size = trunk_size * (4*horiz_fourier_dim + 3) if horiz_fourier_dim>0 else trunk_size
-        self.branch_sizes = [bsize * (4*horiz_fourier_dim + 3) for bsize in branch_sizes] if horiz_fourier_dim > 0 else branch_sizes
-        self.output_size = output_size
-        self.gpt_config = GPTConfig(attn_type=attn_type,embd_pdrop=ffn_dropout, resid_pdrop=ffn_dropout, attn_pdrop=attn_dropout,n_embd=n_hidden, n_head=n_head, n_layer=n_layers,
-                                       block_size=128,act=act, branch_sizes=branch_sizes,n_inputs=len(branch_sizes),n_inner=n_inner)
-        self.n_inputs = len(branch_sizes)
-        self.trunk_mlp = MLP(self.trunk_size, n_hidden, n_hidden, n_layers=mlp_layers,act=act)
-        self.branch_mlps = nn.ModuleList([MLP(bsize, n_hidden, n_hidden, n_layers=mlp_layers,act=act) for bsize in self.branch_sizes])
+        # self.branch_sizes = [bsize * (4*horiz_fourier_dim + 3) for bsize in branch_sizes] if horiz_fourier_dim > 0 else branch_sizes
+        self.branch_sizes = branch_sizes
 
+        self.output_size = output_size
+
+        self.trunk_mlp = MLP(self.trunk_size, n_hidden, n_hidden, n_layers=mlp_layers,act=act)
+        if branch_sizes:
+            self.n_inputs = len(branch_sizes)
+            self.branch_mlps = nn.ModuleList([MLP(bsize, n_hidden, n_hidden, n_layers=mlp_layers, act=act) for bsize in self.branch_sizes])
+        else:
+            self.n_inputs = 0
+
+        self.gpt_config = GPTConfig(attn_type=attn_type, embd_pdrop=ffn_dropout, resid_pdrop=ffn_dropout,
+                                    attn_pdrop=attn_dropout, n_embd=n_hidden, n_head=n_head, n_layer=n_layers,
+                                    block_size=128, act=act, branch_sizes=branch_sizes, n_inputs=self.n_inputs,
+                                    n_inner=n_inner)
 
         self.blocks = nn.Sequential(*[CrossAttentionBlock(self.gpt_config) for _ in range(self.gpt_config.n_layer)])
 
@@ -331,23 +338,28 @@ class CGPTNO(nn.Module):
         return optimizer
 
     def forward(self, g, u_p, inputs):
+
         gs = dgl.unbatch(g)
         x = pad_sequence([_g.ndata['x'] for _g in gs]).permute(1, 0, 2)  # B, T1, F
         x = torch.cat([x, u_p.unsqueeze(1).repeat([1, x.shape[1], 1])], dim=-1)
-
         if self.horiz_fourier_dim > 0:
             x = horizontal_fourier_embedding(x, self.horiz_fourier_dim)
             # z = horizontal_fourier_embedding(z, self.horiz_fourier_dim)
-
         x = self.trunk_mlp(x)
-        z = MultipleTensors([self.branch_mlps[i](inputs[i]) for i in range(self.n_inputs)])
-
+        if self.n_inputs:
+            z = MultipleTensors([self.branch_mlps[i](inputs[i]) for i in range(self.n_inputs)])
+        else:
+            z = MultipleTensors([x])
         for block in self.blocks:
             x = block(x, z)
         x = self.out_mlp(x)
-
         x_out = torch.cat([x[i, :num] for i, num in enumerate(g.batch_num_nodes())],dim=0)
+
+
+
+
         return x_out
+
 
 
 
