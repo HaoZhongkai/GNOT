@@ -13,16 +13,18 @@ Code for [GNOT: A General Neural Operator Transformer for Operator Learning](htt
 A pretrained GNOT could serves as the surrogate model for predicting physical fields. The inference speed is much more faster compared with traditional numerical solvers. To enabling training neural operators on realistic FEM/FVM simulation data, we design several components to deal with the three challenges, i.e. irregular mesh, multiple (types of) input functions, and multi-scale objective functions. 
 
 <p align="center">
-  < img width="40%" src="./resources/fig2.png"/>
+  < img width="40%" src="https://github.com/HaoZhongkai/GNOT/resources/fig2.png"/>
 </p >
+
 
 
 
 Experiments of GNOT is conducted on multiple challenging datasets selected from multiple domains to show it is capacity to generally solve parametric PDE problems. Here is a overview of these datasets:
 
 <p align="center">
-  < img width="60%" src="./resources/fig5.png"/>
+  < img width="60%" src="https://github.com/HaoZhongkai/GNOT/resources/fig5.png"/>
 </p >
+
 
 
 
