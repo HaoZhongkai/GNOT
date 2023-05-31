@@ -2,8 +2,8 @@
 
 Code for [GNOT: A General Neural Operator Transformer for Operator Learning](https://arxiv.org/abs/2302.14376)， accepted at International Conference on Machine Learning (ICML 2023).
 
-- GNOT is a flexible Transformer with linear complexity attention for learning operators or parametric PDE.
-- GNOT could handle arbituary number of source functions/ shapes/ parameters.
+- GNOT is a flexible Transformer with linear complexity attention for learning operators or parametric PDEs.
+- GNOT could handle arbituary number of source functions/shapes/parameters.
 - GNOT achieves the  state-of-the-art results (SOTA) among 7 highly challenging datasets chosen from fluids, heat, and electromagnetism.
 
 
@@ -20,7 +20,7 @@ A pretrained GNOT could serves as the surrogate model for predicting physical fi
 
 
 
-Experiments of GNOT is conducted on multiple challenging datasets selected from multiple domains to show it is capacity to generally solve parametric PDE problems. Here is a overview of these datasets:
+Experiments of GNOT are conducted on multiple challenging datasets selected from multiple domains to show its capacity for generally solving parametric PDE problems. Here is an overview of these datasets:
 
 
 <p align="center">
