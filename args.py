@@ -20,10 +20,10 @@ def get_args():
 
 
 
-    parser.add_argument('--seed', type=int, default=2022, metavar='Seed',
+    parser.add_argument('--seed', type=int, default=2023, metavar='Seed',
                         help='random seed (default: 1127802)')
 
-    parser.add_argument('--gpu', type=int, default=1, help='gpu id')
+    parser.add_argument('--gpu', type=int, default=0, help='gpu id')
     parser.add_argument('--use-tb', type=int, default=0, help='whether use tensorboard')
     parser.add_argument('--comment',type=str,default="",help="comment for the experiment")
 
