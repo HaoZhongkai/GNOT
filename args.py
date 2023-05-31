@@ -74,7 +74,7 @@ def get_args():
     parser.add_argument('--n-hidden',type=int, default=64)
     parser.add_argument('--n-layers',type=int, default=3)
 
-    #### MLP/DeepONet parameters
+    #### MLP parameters
 
     # common
     parser.add_argument('--act', type=str, default='gelu',choices=['gelu','relu','tanh','sigmoid'])
@@ -83,7 +83,8 @@ def get_args():
                         help='dropout for the FFN in attention (default: 0.0)')
     parser.add_argument('--attn-dropout',type=float, default=0.0)
     parser.add_argument('--mlp-layers',type=int, default=3)
-    # GPT
+
+    # Transformer
     # parser.add_argument('--subsampled-len',type=int, default=256)
     parser.add_argument('--attn-type',type=str, default='linear', choices=['random','linear','gated','hydra','kernel'])
     parser.add_argument('--hfourier-dim',type=int,default=0)
