@@ -1,9 +1,25 @@
-# GNOT: General Neural Operator Transformer
+# GNOT: General Neural Operator Transformer (ICML 2023)
+
+Code for [GNOT: A General Neural Operator Transformer for Operator Learning](https://arxiv.org/abs/2302.14376)， accepted at International Conference on Machine Learning (ICML 2023).
+
+- GNOT is a flexible Transformer with linear complexity attention for learning operators or parametric PDE.
+- GNOT could handle arbituary number of source functions/ shapes/ parameters.
+- GNOT achieves the  state-of-the-art results (SOTA) among 7 highly challenging datasets chosen from fluids, heat, and electromagnetism.
 
 
-Code for [GNOT: A General Neural Operator Transformer for Operator Learning](https://arxiv.org/abs/2302.14376).
 
-### Usage
+![fig1](./resources/fig1.png)
+
+A pretrained GNOT could serves as the surrogate model for predicting physical fields. The inference speed is much more faster compared with traditional numerical solvers. To enabling training neural operators on realistic FEM/FVM simulation data, we design several components to deal with the three challenges, i.e. irregular mesh, multiple (types of) input functions, and multi-scale objective functions. 
+
+<img src="./resources/fig2.png" alt="fig2" style="zoom: 50%;" />
+
+Experiments of GNOT is conducted on multiple challenging datasets selected from multiple domains to show it is capacity to generally solve parametric PDE problems. Here is a overview of these datasets:
+
+<img src="./resources/fig5.png" alt="fig5" style="zoom: 40%;" />
+
+### Get Start
+
 Add dataset folder if it does not exists,
 
 ``mdkir data``
@@ -44,7 +60,7 @@ Dataset = [
     - N_theta: dimension of global parameters
 - **Input_funcs**: `tuple (inputs_1, ..., inputs_n)`，every `inputs_i` is a numary array of shape (N_i, f_i), it can be (None,) :
     - N_i: number of points used to discretize this input function
-    - f_i: dimension of this input function
+    - f_i: dimension of this input function plus the dimension of geometry, actually it is the concat of (x_i, f(x_i)).
     
 - **Note:**
     - For a single sample, The number of points must match, i.e, ``X.shape[0]=Y.shape[0]``, but it can vary with samples
@@ -63,6 +79,16 @@ python train.py --gpu 0 --dataset ns2d_4ball --use-normalizer unit  --normalize_
 ```
 
 
+
+### Results of GNOT
+
+Main experimental result for GNOT:
+
+![fig3](./resources/fig3.png)
+
+Besides, as a transformer architecture, we verify its scaling properties with more data and larger network capacity. This suggests that it is possible to scaling up the architecture for solving larger problems.
+
+![fig4](./resources/fig4.png)
 
 ### Code Structure
 

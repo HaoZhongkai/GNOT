@@ -11,7 +11,7 @@ import argparse
 def get_args():
     parser = argparse.ArgumentParser(description='GNOT for operator learning')
     parser.add_argument('--dataset',type=str,
-                        default='heat2d',
+                        default='ns2d',
                         choices = ['heat2d','ns2d','inductor2d','heatsink3d','ns2d_time','darcy2d',])
 
 
@@ -23,7 +23,7 @@ def get_args():
     parser.add_argument('--seed', type=int, default=2022, metavar='Seed',
                         help='random seed (default: 1127802)')
 
-    parser.add_argument('--gpu', type=int, default=0, help='gpu id')
+    parser.add_argument('--gpu', type=int, default=1, help='gpu id')
     parser.add_argument('--use-tb', type=int, default=0, help='whether use tensorboard')
     parser.add_argument('--comment',type=str,default="",help="comment for the experiment")
 
@@ -32,7 +32,7 @@ def get_args():
 
     parser.add_argument('--sort-data',type=int, default=0)
 
-    parser.add_argument('--normalize_x', type=str, default='none',
+    parser.add_argument('--normalize_x', type=str, default='unit',
                         choices=['none', 'minmax', 'unit'])
     parser.add_argument('--use-normalizer', type=str, default='unit',
                         choices=['none', 'minmax', 'unit', 'quantile'],

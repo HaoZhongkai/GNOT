@@ -77,20 +77,21 @@ def get_model(args):
     # else:
     #     raise NotImplementedError
 
-    trunk_size, theta_size, output_size = args.dataset_config['input_dim'], args.dataset_config['theta_dim'], args.dataset_config['output_dim']
-    output_size = args.dataset_config['output_dim'] if args.component in ['all', 'all_reduce'] else 1
+    trunk_size, theta_size, branch_sizes, output_size = args.dataset_config['input_dim'], args.dataset_config['theta_dim'], args.dataset_config['branch_sizes'], args.dataset_config['output_dim']
+    output_size = args.dataset_config['output_dim'] if args.component in ['all', 'all-reduce'] else 1
+
 
     ### full batch training
     if args.model_name == "CGPT":
         # trunk_size, branch_size, output_size = space_dim + u_p_dim, space_dim + g_u_dim, out_size
 
-        return CGPTNO(trunk_size=trunk_size + theta_size ,branch_sizes=args.branch_sizes, output_size=output_size,n_layers=args.n_layers, n_hidden=args.n_hidden, n_head=args.n_head,attn_type=args.attn_type, ffn_dropout=args.ffn_dropout, attn_dropout=args.attn_dropout, mlp_layers=args.mlp_layers, act=args.act,horiz_fourier_dim=args.hfourier_dim)
+        return CGPTNO(trunk_size=trunk_size + theta_size ,branch_sizes=branch_sizes, output_size=output_size,n_layers=args.n_layers, n_hidden=args.n_hidden, n_head=args.n_head,attn_type=args.attn_type, ffn_dropout=args.ffn_dropout, attn_dropout=args.attn_dropout, mlp_layers=args.mlp_layers, act=args.act,horiz_fourier_dim=args.hfourier_dim)
 
 
 
     elif args.model_name == "GNOT":
 
-        return GNOT(trunk_size=trunk_size + theta_size,branch_sizes=args.branch_sizes, output_size=output_size,n_layers=args.n_layers, n_hidden=args.n_hidden, n_head=args.n_head,attn_type=args.attn_type, ffn_dropout=args.ffn_dropout, attn_dropout=args.attn_dropout, mlp_layers=args.mlp_layers, act=args.act,horiz_fourier_dim=args.hfourier_dim,space_dim=args.space_dim,n_experts=args.n_experts, n_inner=args.n_inner)
+        return GNOT(trunk_size=trunk_size + theta_size,branch_sizes=branch_sizes, output_size=output_size,n_layers=args.n_layers, n_hidden=args.n_hidden, n_head=args.n_head,attn_type=args.attn_type, ffn_dropout=args.ffn_dropout, attn_dropout=args.attn_dropout, mlp_layers=args.mlp_layers, act=args.act,horiz_fourier_dim=args.hfourier_dim,space_dim=args.space_dim,n_experts=args.n_experts, n_inner=args.n_inner)
 
 
 
@@ -353,6 +354,8 @@ class MIODataset(DGLDataset):
         sorted_lists = sorted(zipped_lists, key=lambda x: x[0].number_of_nodes(),reverse=True)
 
         self.graphs, self.u_p, self.inputs_f = zip(*sorted_lists)
+        self.graphs, self.inputs_f = list(self.graphs), list(self.inputs_f)
+
         print('Dataset sorted by number of nodes')
         return
 
