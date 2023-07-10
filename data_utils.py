@@ -199,7 +199,7 @@ class FNODataset(DGLDataset):
         print('Target features are normalized using pointwise unit normalizer')
         # print('Target features are normalized using unit transformer')
 
-    ### TODO: use train X normalizer since test data is not available
+
     def __normalize_x(self):
         x_feats_all = torch.cat([g.ndata["x"] for g in self.graphs],dim=0)
 
